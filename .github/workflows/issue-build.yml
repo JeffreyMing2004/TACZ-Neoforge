@@ -37,19 +37,30 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-      - name: Comment build result on issue
+      - name: Comment build result on issue and auto-close
         if: always()
         uses: actions/github-script@v7
         with:
           script: |
             const status = '${{ job.status }}';
             const runUrl = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
-            const body = status === 'success'
-              ? `✅ 编译成功！本 Issue 触发的构建产物请到 Actions 运行页下载：\n\n${runUrl}\n（页面底部 Artifacts 区域 → \`tacz-neoforge-issue-${{ github.event.issue.number }}\`）`
-              : `❌ 编译失败，详情请查看 Actions 日志：\n\n${runUrl}`;
+            let body;
+            if (status === 'success') {
+              body = `✅ 编译成功！本 Issue 触发的构建产物请到 Actions 运行页下载：\n\n${runUrl}\n（页面底部 Artifacts 区域 → \`tacz-neoforge-issue-${{ github.event.issue.number }}\`）`;
+            } else {
+              body = `❌ 编译失败，详情请查看 Actions 日志：\n\n${runUrl}`;
+            }
+            body += `\n\n---\n> 🤖 本仓库策略：Issue 提交后会自动触发编译并**自动关闭**。\n> - 构建产物：${runUrl} 页面底部 Artifacts\n> - 若问题未解决或有新信息，欢迎再次提交新 Issue`;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
               body
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed',
+              state_reason: 'completed'
             });

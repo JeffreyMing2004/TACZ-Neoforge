@@ -1,5 +1,5 @@
 name: 🐞 Bug反馈
-description: 中文Bug反馈模板
+description: 中文Bug反馈模板（NeoForge 1.21.1 移植版）
 title: "[Bug]: "
 labels: [ "bug" ]
 
@@ -7,47 +7,53 @@ body:
   - type: markdown
     attributes:
       value: |
-        请确保您使用的是最新版的tacz，您所反馈的bug很可能已经在更新版本中修复
+        **欢迎反馈 NeoForge 1.21.1 移植版的问题！**
 
-        在反馈bug前，请先尝试搜索是否已有相似的问题，请不要重复打开相同的issue
+        - 提交本 Issue 后会**自动触发编译**，构建产物将在 Actions 运行页的 Artifacts 中提供，随后 Issue 会**自动关闭**
+        - 请确保您使用的是最新移植版，所反馈的问题可能已在更新中修复
+        - 反馈前请先搜索是否已有相似问题，不要重复提交
+        - ⚠️ 请勿将本移植版的问题报告到上游原版仓库
+
+        > [!NOTE]
+        > 本 Issue 仅作为编译触发器使用：提交后会自动收到构建结果评论并自动关闭。
+        > 若问题未解决，请携带构建产物再次提交新 Issue 并补充信息。
 
   - type: checkboxes
     id: preliminary
     attributes:
       label: 我已确认 ...
       options:
-        - label: 我正在使用最新版的tacz
-        - label: 无法在不安装tacz时复现
+        - label: 我正在使用最新的 NeoForge 1.21.1 移植版
+        - label: 无法在不安装 tacz 时复现
           required: true
 
   - type: input
     id: minecraft-modloader-version
     attributes:
-      label: Minecraft和模组加载器版本
+      label: Minecraft 和 NeoForge 版本
       description: |
-        你所使用的Minecraft和模组加载器(forge/fabric)的版本.  
+        你所使用的 Minecraft 与 NeoForge 版本。
 
-        你可以在游戏主界面作下角或者游戏启动时的日志开头等地方找到.
-        
+        可在游戏主界面左下角或启动日志开头找到，例如 `1.21.1 / NeoForge 21.1.147`。
     validations:
       required: true
 
   - type: input
     id: version
     attributes:
-      label: tacz的版本
-      description: 你可以在模组菜单中找到tacz的版本，或者检测手持枪械时右下角标识的版本号
+      label: tacz 移植版版本
+      description: 可在模组菜单中查看 tacz-neoforge 的版本号
     validations:
       required: true
 
   - type: textarea
     id: related
     attributes:
-      label: Related Mods
+      label: 相关模组
       description: >-
-        和bug相关的模组
-        <br>请在反馈问题前尝试尽可能移除不相干的模组的情况下复现bug
-      placeholder: 'Mods list here'
+        与 bug 相关的模组列表。
+        <br>反馈前请尽量在移除无关模组的情况下复现问题
+      placeholder: '在此填写模组列表'
       render: 'raw'
     validations:
       required: true
@@ -55,11 +61,11 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Description
+      label: 问题描述
       description: >-
-        请尽可能详细的描述遇到的问题. 
-        <br>请在反馈问题前尝试尽可能移除不相干的模组的情况下复现bug
-        <br>越清晰和详尽的描述会使该bug的处理优先级更高
+        请尽可能详细地描述遇到的问题。
+        <br>描述越清晰详尽，处理优先级越高
+      placeholder: "期望发生什么 / 实际发生了什么"
     validations:
       required: true
 
@@ -68,18 +74,18 @@ body:
     attributes:
       label: 复现步骤
       placeholder: |
-        1. Install something...
+        1. 安装……
 
-        2. Join the game...
+        2. 进入世界……
 
-        3. ....
+        3. ……
 
   - type: textarea
     id: logs
     attributes:
       label: 日志和崩溃报告
       description: >-
-       你可以在/logs/lastest.log 和 /crash-report 中找到错误报告，或者使用启动器的导出功能
-        <br>你可以日志上传到类似 https://paste.ubuntu.com/ 或者 https://mclo.gs/ 的网站并在此贴出链接
-        <br>**请不要在此此处直接粘贴大段的日志文本!!**
-      placeholder: '把日志文件往这丢或者使用外部链接'
+        你可以在 `/logs/latest.log` 和 `/crash-reports/` 中找到错误报告，或使用启动器的导出功能。
+        <br>建议上传到 https://mclo.gs/ 等网站后贴出链接
+        <br>**请不要直接粘贴大段日志文本！！**
+      placeholder: '把日志文件放这里或使用外部链接'

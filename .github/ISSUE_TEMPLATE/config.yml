@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 上游原版仓库（Forge 1.20.1）/ Upstream (Forge 1.20.1)
+    url: https://github.com/MCModderAnchor/TACZ/issues
+    about: 原版 Forge 1.20.1 的问题请反馈到上游，勿在此提交 / Report upstream Forge issues there, not in this repo

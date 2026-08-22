@@ -1,5 +1,5 @@
 name: 🐞 Bug Report
-description: English template for reporting a bug
+description: English template for reporting a bug (NeoForge 1.21.1 port)
 title: "[Bug]: "
 labels: [ "bug" ]
 
@@ -7,36 +7,42 @@ body:
   - type: markdown
     attributes:
       value: |
-        Make sure you're using the latest version of tacz, the problem you're experiencing has most likely been fixed!
-        
-        Make sure you have searched issues and no similar is present.
+        **Welcome! You are reporting an issue for the NeoForge 1.21.1 port.**
+
+        - Submitting this issue **triggers an automatic build**; the jar artifact will be available under the Actions run page, and the issue will be **closed automatically** afterwards
+        - Make sure you are using the latest port version, the problem may already be fixed
+        - Please search existing issues before submitting a duplicate
+        - ⚠️ Do NOT report issues of this port to the upstream repository
+
+        > [!NOTE]
+        > Issues in this repo act as build triggers: you will receive a comment with the build result, then the issue is auto-closed.
+        > If the problem persists, open a new issue with the artifact and more details.
 
   - type: checkboxes
     id: preliminary
     attributes:
       label: I have confirmed that ...
       options:
-        - label: tacz is up to date
+        - label: I am using the latest NeoForge 1.21.1 port
         - label: unable to reproduce without tacz
           required: true
 
   - type: input
     id: minecraft-modloader-version
     attributes:
-      label: Minecraft and modloader version
+      label: Minecraft and NeoForge version
       description: |
-        The minecraft version and mod loader you use(forge/fabric) and their version.  
+        The Minecraft version and NeoForge version you use.
 
-        You can find them at the corner of main menu or in the log while startup.
-        
+        You can find them at the corner of the main menu or in the startup log, e.g. `1.21.1 / NeoForge 21.1.147`.
     validations:
       required: true
 
   - type: input
     id: version
     attributes:
-      label: tac version
-      description: Versions can be find in mod menu or at the corner of hud when you hold a tacz gun.
+      label: tacz port version
+      description: Versions can be found in the mod menu (tacz-neoforge)
     validations:
       required: true
 
@@ -46,7 +52,7 @@ body:
       label: Related Mods
       description: >-
         The mods related to the bug.
-        <br>Try to remove unrelated plugins and mods before reporting
+        <br>Try to reproduce with as few unrelated mods as possible before reporting
       placeholder: 'Mods list here'
       render: 'raw'
     validations:
@@ -57,32 +63,29 @@ body:
     attributes:
       label: Description
       description: >-
-        Please include as much information as possible. 
-        <br>For the description, assume we have no idea how mods work, 
-        be as detailed as possible and include a step by step reproduction. 
-        <br>It is recommended you try to reproduce the issue you are having yourself with as few mods as possible. 
+        Please include as much information as possible.
         <br>The clearer the description, the higher the report processing priority
-      placeholder: "Detailed information about what should(not) happen"
+      placeholder: "What should happen / what actually happened"
     validations:
       required: true
 
   - type: textarea
     id: step
     attributes:
-      label: Step to reproduce
+      label: Steps to reproduce
       placeholder: |
-        1. Install something...
+        1. Install ...
 
-        2. Join the game...
+        2. Join the world ...
 
-        3. ....
+        3. ...
 
   - type: textarea
     id: logs
     attributes:
       label: Logs & Crash reports
       description: >-
-        Logs can be found in /logs/latest.log and crash reports can be finded in /crash-reports
-        <br>After server is stopped, drag log file below or upload it to site like https://paste.ubuntu.com/ or https://mclo.gs/
+        Logs can be found in `/logs/latest.log` and crash reports in `/crash-reports/`.
+        <br>Upload to https://mclo.gs/ or similar and paste the link here
         <br>**DO NOT COPY PASTE LOG CONTENT DIRECTLY!**
       placeholder: 'Drag log file here to upload or external pastebin link'
