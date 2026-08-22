@@ -1,7 +1,6 @@
 name: 📦 编译请求
 description: 仅需获取一份当前代码的编译产物时使用 / Just need a compiled jar of this port
 title: "[Build]: "
-labels: [ ]
 
 body:
   - type: markdown
