@@ -15,6 +15,13 @@
 > **问题反馈请找本仓库作者，不要打扰原作者**
 > 使用本移植版遇到的任何 Bug、崩溃或兼容性问题，请提交到本仓库的 [Issues](https://github.com/JeffreyMing2004/TACZ-Neoforge/issues)，**请勿**向上游 [MCModderAnchor/TACZ](https://github.com/MCModderAnchor/TACZ/issues) 报告移植版的问题。
 
+> [!TIP]
+> **提交 Issue 自动编译**
+> 本仓库配置了 GitHub Actions 流水线：每当有新 Issue 提交时，会自动触发完整编译。
+> - 编译产物（mod jar）可在对应 [Actions 运行页](https://github.com/JeffreyMing2004/TACZ-Neoforge/actions) 底部的 Artifacts 区域下载（保留 14 天）
+> - 构建结果（成功/失败 + 日志链接）会以评论形式回复到触发它的 Issue 下方
+> - 工作流定义见 `.github/workflows/issue-build.yml`
+
 <p align="center">
     <a href="https://www.curseforge.com/minecraft/mc-mods/timeless-and-classics-zero">
         <img src="http://cf.way2muchnoise.eu/full_timeless-and-classics-zero.svg" alt="CurseForge Download">

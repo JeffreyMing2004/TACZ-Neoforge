@@ -1,0 +1,55 @@
+name: Build (Issue Triggered)
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build
+        run: ./gradlew build --no-daemon --stacktrace
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tacz-neoforge-issue-${{ github.event.issue.number }}
+          path: |
+            build/libs/*.jar
+            !build/libs/*-sources.jar
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Comment build result on issue
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const status = '${{ job.status }}';
+            const runUrl = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
+            const body = status === 'success'
+              ? `✅ 编译成功！本 Issue 触发的构建产物请到 Actions 运行页下载：\n\n${runUrl}\n（页面底部 Artifacts 区域 → \`tacz-neoforge-issue-${{ github.event.issue.number }}\`）`
+              : `❌ 编译失败，详情请查看 Actions 日志：\n\n${runUrl}`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
