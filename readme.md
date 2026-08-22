@@ -18,6 +18,7 @@
 > [!TIP]
 > **提交 Issue 自动编译**
 > 本仓库配置了 GitHub Actions 流水线：每当有新 Issue 提交时，会自动触发完整编译。
+> - 只想拿编译产物？直接使用「📦 编译请求」模板提交即可
 > - 编译产物（mod jar）可在对应 [Actions 运行页](https://github.com/JeffreyMing2004/TACZ-Neoforge/actions) 底部的 Artifacts 区域下载（保留 14 天）
 > - 构建结果（成功/失败 + 日志链接）会以评论形式回复到触发它的 Issue 下方
 > - **Issue 在编译触发后会自动关闭**：本仓库的 Issue 仅作为构建触发器使用，若问题未解决，请携带构建产物再次提交新 Issue

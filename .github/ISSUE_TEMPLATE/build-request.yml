@@ -1,0 +1,44 @@
+name: 📦 编译请求
+description: 仅需获取一份当前代码的编译产物时使用 / Just need a compiled jar of this port
+title: "[Build]: "
+labels: [ ]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **提交本 Issue 后会自动触发编译**，完成后：
+
+        - ✅ 构建结果会以评论形式回复到本 Issue 下方
+        - 📦 编译产物（mod jar）在 [Actions 运行页](https://github.com/JeffreyMing2004/TACZ-Neoforge/actions) 对应运行底部的 **Artifacts** 区域下载（保留 14 天）
+        - 🤖 随后本 Issue 会**自动关闭**
+
+        > [!NOTE]
+        > 如果你要报告 Bug，请改用「🐞 Bug反馈」模板，方便补充复现信息。
+        > After submitting, the build starts automatically; download the jar from the run page's Artifacts section. This issue will be closed automatically.
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: 我已了解 / I understand
+      options:
+        - label: 提交后会自动编译并自动关闭本 Issue / Build triggers automatically, issue will be auto-closed
+          required: true
+        - label: 产物从 Actions 运行页的 Artifacts 下载 / Artifact is downloaded from the Actions run page
+          required: true
+
+  - type: input
+    id: target-branch
+    attributes:
+      label: 目标分支（可选）/ Target branch (optional)
+      description: |
+        默认编译 `main` 分支最新代码。如需其他分支请填写分支名。
+        Leave empty to build the latest code on the `main` branch.
+      placeholder: 'main'
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 备注说明（可选）/ Notes (optional)
+      description: 其他需要说明的信息，如用途、期望包含的改动等 / Any extra information
+      placeholder: '例如：用于整合包测试 / e.g. for modpack testing'
