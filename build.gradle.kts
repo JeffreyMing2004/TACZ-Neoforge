@@ -72,13 +72,20 @@ repositories {
         content {
             includeGroup("com.github.rtyley")
             includeGroup("com.github.FiguraMC.luaj")
+            includeGroup("com.github.mcmodderanchor")
         }
     }
     maven("https://maven.shedaniel.me")
     maven("https://maven.kosmx.dev")
-    maven("https://maven.blamejared.com")
-    maven("https://dvs1.progwml6.com/files/maven/")
-    maven("https://modmaven.dev")
+    maven("https://maven.blamejared.com") {
+        content { includeGroup("mezz.jei") }
+    }
+    maven("https://dvs1.progwml6.com/files/maven/") {
+        content { includeGroup("mezz.jei") }
+    }
+    maven("https://modmaven.dev") {
+        content { includeGroup("mezz.jei") }
+    }
     maven {
         url = uri("https://maven.architectury.dev")
         content {

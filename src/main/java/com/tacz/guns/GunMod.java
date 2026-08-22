@@ -1,6 +1,7 @@
 package com.tacz.guns;
 
 import com.tacz.guns.api.resource.ResourceManager;
+import com.tacz.guns.compat.kubejs.TimelessKubeJSPlugin;
 import com.tacz.guns.config.ClientConfig;
 import com.tacz.guns.config.CommonConfig;
 import com.tacz.guns.config.PreLoadConfig;
@@ -53,6 +54,10 @@ public class GunMod {
         ModParticles.PARTICLE_TYPES.register(bus);
         ModAttributes.ATTRIBUTES.register(bus);
         ModPainting.PAINTINGS.register(bus);
+
+        if (net.neoforged.fml.ModList.get().isLoaded("kubejs")) {
+            bus.addListener(TimelessKubeJSPlugin::onRegisterItems);
+        }
 
         registerDefaultExtraGunPack();
         AttachmentPropertyManager.registerModifier();
