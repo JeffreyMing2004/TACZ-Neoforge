@@ -2,8 +2,8 @@ package com.tacz.guns.compat.kubejs.util;
 
 import com.google.gson.JsonObject;
 import com.tacz.guns.crafting.result.GunSmithTableResult;
-import dev.latvian.mods.kubejs.item.ItemStackJS;
-import dev.latvian.mods.kubejs.util.RegistryAccessContainer;
+import dev.latvian.mods.kubejs.plugin.builtin.wrapper.ItemWrapper;
+import dev.latvian.mods.rhino.Context;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
@@ -56,11 +56,13 @@ public class GunSmithTableResultInfo {
      * {@link GunSmithTableResultInfo}的TypeWrapper, 将其他类型转为{@link GunSmithTableResultInfo}
      * object为其他类型时优先解析{@link JsonObject}，其次{@link ItemStack}
      * 之后尝试转化为{@link String}解析为{@link ResourceLocation}
-     * 以上均不成功时最终{@link JsonIO#of(Object)}解析
+     * 再尝试按{@link Map}解析
+     * 以上均不成功且上下文可用时，最终交由 KubeJS 的 ItemWrapper 解析为物品堆
+     * @param cx Rhino 脚本上下文（由脚本调用时自动注入）
      * @param object 输入待转化对象
      * @return {@link GunSmithTableResultInfo}
      */
-    public static GunSmithTableResultInfo of(Object object) {
+    public static GunSmithTableResultInfo of(Context cx, Object object) {
         if (object instanceof GunSmithTableResultInfo info) {
             return info;
         } else if (object instanceof JsonObject jsonObject) {
@@ -76,17 +78,16 @@ public class GunSmithTableResultInfo {
                 return create().setType(indexInfo.getParent()).setId(indexInfo.getIndexId());
             }
         }
-        RegistryAccessContainer access = RegistryAccessContainer.current;
-        if (access == null) {
-            access = RegistryAccessContainer.BUILTIN;
-        }
-        ItemStack stack = ItemStackJS.wrap(access, object);
-        if (!stack.isEmpty()) {
-            return createFromItemStack(stack);
-        }
-        //以上都不匹配，尝试按Map处理
+        //按Map处理
         if (object instanceof Map<?, ?> map) {
             return createFromJson(fromMap(map));
+        }
+        //以上都不匹配，尝试按物品字符串/对象解析
+        if (cx != null) {
+            ItemStack stack = ItemWrapper.wrap(cx, object);
+            if (!stack.isEmpty()) {
+                return createFromItemStack(stack);
+            }
         }
         throw new IllegalArgumentException("Cannot convert " + object + " to GunSmithTableResultInfo");
     }
