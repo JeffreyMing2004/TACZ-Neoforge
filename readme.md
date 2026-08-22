@@ -11,6 +11,10 @@
 > - 平台迁移基于社区开源移植项目 [MUKSC/TACZ-1.21.1](https://github.com/MUKSC/TACZ-1.21.1)（GPL-3.0）的成果，并合并了上游后续修复与 KubeJS 扩展功能的迁移
 > - 注意：1.20.1 的存档数据与本移植不兼容；旧枪械包需要使用 TaCZ Pack Upgrader 升级
 
+> [!IMPORTANT]
+> **问题反馈请找本仓库作者，不要打扰原作者**
+> 使用本移植版遇到的任何 Bug、崩溃或兼容性问题，请提交到本仓库的 [Issues](https://github.com/JeffreyMing2004/TACZ-Neoforge/issues)，**请勿**向上游 [MCModderAnchor/TACZ](https://github.com/MCModderAnchor/TACZ/issues) 报告移植版的问题。
+
 <p align="center">
     <a href="https://www.curseforge.com/minecraft/mc-mods/timeless-and-classics-zero">
         <img src="http://cf.way2muchnoise.eu/full_timeless-and-classics-zero.svg" alt="CurseForge Download">
